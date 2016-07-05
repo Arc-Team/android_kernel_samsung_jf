@@ -2290,8 +2290,9 @@ static bool hub_port_warm_reset_required(struct usb_hub *hub, u16 portstatus)
 static int hub_port_wait_reset(struct usb_hub *hub, int port1,
 			struct usb_device *udev, unsigned int delay, bool warm)
 {
-	int delay_time, ret;
-	u16 portstatus = 0, portchange = 0;
+	int delay_time = 0, ret = 0;
+	u16 portstatus = 0;
+	u16 portchange = 0;
 
 	for (delay_time = 0;
 			delay_time < HUB_RESET_TIMEOUT;
@@ -2856,7 +2857,7 @@ int usb_port_resume(struct usb_device *udev, pm_message_t msg)
 {
 	struct usb_hub	*hub = hdev_to_hub(udev->parent);
 	int		port1 = udev->portnum;
-	int		status;
+	int		status = 0;
 	u16		portchange = 0, portstatus = 0;
 
 	/* Skip the initial Clear-Suspend step for a remote wakeup */
@@ -3079,8 +3080,8 @@ EXPORT_SYMBOL_GPL(usb_root_hub_lost_power);
  */
 static int hub_port_debounce(struct usb_hub *hub, int port1)
 {
-	int ret;
-	int total_time, stable_time = 0;
+	int ret = 0;
+	int total_time = 0, stable_time = 0;
 	u16 portchange = 0, portstatus = 0;
 	unsigned connection = 0xffff;
 
